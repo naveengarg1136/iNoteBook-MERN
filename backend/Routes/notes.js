@@ -34,7 +34,7 @@ router.post('/addnote',fetchuser,[
         tag:req.body.tag
     });
     const x= await da.save();
-    res.send({x});
+    res.send(x);
 } catch (err) {
     res.status(500).send({ error: "Something is wrong" })
     console.log(err.message);

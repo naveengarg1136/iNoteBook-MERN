@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import NoteContext from '../context/notes/noteContext'
+import AlertContext from '../context/alert/alertContext'
 import { Button, Modal } from 'react-bootstrap';
 
 const Noteitem = (props) => {
@@ -7,6 +8,8 @@ const Noteitem = (props) => {
 
     const context = useContext(NoteContext);
     const { deleteNote, editNode } = context;
+    const context2 = useContext(AlertContext);
+    const { showAlert } = context2;
 
     const { note } = props;
 
@@ -19,6 +22,7 @@ const Noteitem = (props) => {
         e.preventDefault();
         editNode(note._id,enote.title, enote.description,enote.tag);
         handleClose();
+        showAlert("Note Updated","success");
     }
 
     const onChange=(e)=>{
@@ -32,7 +36,7 @@ const Noteitem = (props) => {
                 <div className="card-body">
                     <div className='d-flex align-items-center '>
                         <h5 className="card-title">{note.title}</h5>
-                        <i className="fa-solid fa-trash mx-2" onClick={() => { deleteNote(note._id) }}></i>
+                        <i className="fa-solid fa-trash mx-2" onClick={() => { deleteNote(note._id); showAlert("Note Deleted","success") }}></i>
                         <i className="fa-solid fa-sliders mx-2" onClick={handleShow}></i>
 
                     </div>
@@ -65,7 +69,7 @@ const Noteitem = (props) => {
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={updatenote}>
+                            <Button  variant="primary" onClick={updatenote}>
                                 Update Note
                             </Button>
                         </Modal.Footer>

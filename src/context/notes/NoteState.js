@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NoteContext from "./noteContext";
 
+
 const NoteState = (props) => {
   const host= "http://localhost:5000/";
   
@@ -35,17 +36,8 @@ const NoteState = (props) => {
       body: JSON.stringify({title,description,tag}) 
     });
 
-    //const json=response.json();
-    
-    const newNote={
-      "_id": "6293c2f4edf8e15d5bc1fd9",
-      "user": "6293b7d7f346027aa3e6d315",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "Date": "2022-05-29T19:01:08.714Z",
-      "__v": 0
-    }
+    let newNote= await response.json();
+   
     setNotes(notes.concat(newNote));
   };
   const deleteNote = async(id) => {
@@ -61,7 +53,7 @@ const NoteState = (props) => {
       
     });
 
-    const json=response.json();
+    response.json();
     
       const newNote= notes.filter((notes)=>{return notes._id!==id})
       setNotes(newNote);
@@ -98,6 +90,7 @@ const NoteState = (props) => {
   return (
 
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNode,fetchAllNotes }}>
+
       {props.children}
     </NoteContext.Provider>
 

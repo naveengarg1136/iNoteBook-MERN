@@ -21,9 +21,10 @@ router.post('/createuser', [
     }
     //Check Weather if email already Exist in DB
     try {
+        let success=false;
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: "Sorry Email already Exist." })
+            return res.status(400).json({success, error: "Sorry Email already Exist." })
         }
         //Password hasing + salt using Bcrypt async 
         const salt = await bcrypt.genSalt(10);
@@ -39,8 +40,9 @@ router.post('/createuser', [
                 id: user.id
             }
         }
+        success=true;
         const authtoken = jwt.sign(data, secrettoken);
-        res.json({ authtoken });
+        res.json({success, authtoken });
     } catch (err) {
         res.status(500).send({ error: "Something is wrong" })
         console.log(err.message);
@@ -61,15 +63,16 @@ router.post('/login', [
     //Check Weather if email not Exist in DB
     try {
         const {email,password}=req.body;
+        let success=false;
 
         let user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(400).json({ error: "Enter valid credentials" })
+            return res.status(400).json({success, error: "Enter valid credentials" })
         }
         //User provided Password should match hash pass present in DB using Bcrypt async 
         const passwordMatched = await bcrypt.compare(password, user.password);
         if(!passwordMatched){
-            return res.status(400).json({ error: "Enter valid credentials" })
+            return res.status(400).json({ success,error: "Enter valid credentials" })
         }
         
         // authtoken using JWT Token
@@ -79,7 +82,8 @@ router.post('/login', [
             }
         }
         const authtoken = jwt.sign(data, secrettoken);
-        res.json({ authtoken });
+        success=true;
+        res.json({success, authtoken });
     } catch (err) {
         res.status(500).send({ error: "Internal Server Error" })
         console.log(err.message);

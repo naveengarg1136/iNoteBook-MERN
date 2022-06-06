@@ -25,6 +25,10 @@ const Navbar = () => {
                             </li>
                             
                         </ul>
+                        <div className='d-flex'>
+                        <Link className="btn btn-outline-light btn-sm mx-2" to="/login" role="button">Login</Link>
+                        <Link className="btn btn-outline-light btn-sm mx-2" to="/signup" role="button">Sign up</Link>
+                        </div>
 
                     </div>
                 </div>
