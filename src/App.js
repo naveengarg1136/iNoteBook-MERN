@@ -21,9 +21,12 @@ function App() {
     <NoteState>
       
     <Router>
-     
-        <Navbar/>
-        <AlertState>
+    <AlertState>
+      <div>
+      <Navbar/>
+      </div>
+       
+        
         <Alert/>
         <div className='container'>
       <Switch>

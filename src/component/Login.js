@@ -21,10 +21,11 @@ const Login =() => {
                 body: JSON.stringify({ email: creds.email, password: creds.password })
             });
         const json = await response.json();
-        console.log(json);
+        
         if(json.success) {
             showAlert("Login suceesfully","success");
             localStorage.setItem('token',json.authtoken);
+            
             history.push("/");
             
         }

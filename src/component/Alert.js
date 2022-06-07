@@ -4,9 +4,9 @@ import AlertContext from '../context/alert/alertContext'
 const Alert = () => {
     const context = useContext(AlertContext);
     const { alert } = context;
-    console.log(alert);
+    
   return (
-    <div className='container text-center my-2' style={{height:'50px' , width:'40%'}}>
+    <div className=' mx-auto my-2 w-30' style={{height:'20px' , width:'30%'}}>
         {alert &&
         <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
         {alert.msg}
